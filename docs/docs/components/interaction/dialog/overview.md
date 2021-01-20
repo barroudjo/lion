@@ -10,7 +10,7 @@ import '@lion/dialog/lion-dialog.js';
 import demoStyle from './src/demo-dialog-style.js';
 ```
 
-```js story
+```js preview-story
 export const main = () => html`
   <style>
     ${demoStyle}
