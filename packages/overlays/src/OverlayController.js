@@ -739,12 +739,7 @@ export class OverlayController extends EventTargetShim {
         this.__bodyMarginBottom = 0;
         break;
       case 'show': {
-        if (supportsCSSTypedObject) {
-          // @ts-expect-error types attributeStyleMap not available yet
-          this.__bodyMarginRight = document.body.computedStyleMap().get('margin-right').value;
-          // @ts-expect-error types computedStyleMap not available yet
-          this.__bodyMarginBottom = document.body.computedStyleMap().get('margin-bottom').value;
-        } else if (window.getComputedStyle) {
+        if (window.getComputedStyle) {
           const bodyStyle = window.getComputedStyle(document.body);
           if (bodyStyle) {
             this.__bodyMarginRight = parseInt(bodyStyle.getPropertyValue('margin-right'), 10);
