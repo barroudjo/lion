@@ -739,12 +739,7 @@ export class OverlayController extends EventTargetShim {
         this.__bodyMarginBottom = 0;
         break;
       case 'show': {
-        if (supportsCSSTypedObject) {
-          // @ts-expect-error types attributeStyleMap not available yet
-          this.__bodyMarginRight = document.body.computedStyleMap().get('margin-right').value;
-          // @ts-expect-error types computedStyleMap not available yet
-          this.__bodyMarginBottom = document.body.computedStyleMap().get('margin-bottom').value;
-        } else if (window.getComputedStyle) {
+        if (window.getComputedStyle) {
           const bodyStyle = window.getComputedStyle(document.body);
           if (bodyStyle) {
             this.__bodyMarginRight = parseInt(bodyStyle.getPropertyValue('margin-right'), 10);
@@ -757,15 +752,8 @@ export class OverlayController extends EventTargetShim {
           document.body.clientHeight - /** @type {number} */ (this.__bodyClientHeight);
         const newMarginRight = this.__bodyMarginRight + scrollbarWidth;
         const newMarginBottom = this.__bodyMarginBottom + scrollbarHeight;
-        if (supportsCSSTypedObject) {
-          // @ts-expect-error types attributeStyleMap + CSS.px not available yet
-          document.body.attributeStyleMap.set('margin-right', CSS.px(newMarginRight));
-          // @ts-expect-error types attributeStyleMap + CSS.px not available yet
-          document.body.attributeStyleMap.set('margin-bottom', CSS.px(newMarginBottom));
-        } else {
-          document.body.style.marginRight = `${newMarginRight}px`;
-          document.body.style.marginBottom = `${newMarginBottom}px`;
-        }
+        document.body.style.marginRight = `${newMarginRight}px`;
+        document.body.style.marginBottom = `${newMarginBottom}px`;
         break;
       }
       case 'hide':
